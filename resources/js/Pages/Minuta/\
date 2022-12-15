@@ -1,0 +1,161 @@
+
+<script setup>
+import AppLayout from '@/Layouts/AppLayout.vue';
+import { ref } from 'vue';
+import { useForm } from '@inertiajs/inertia-vue3';
+import ActionMessage from '@/Components/ActionMessage.vue';
+import FormSection from '@/Components/FormSection.vue';
+import InputError from '@/Components/InputError.vue';
+import InputLabel from '@/Components/InputLabel.vue';
+import PrimaryButton from '@/Components/PrimaryButton.vue';
+import TextInput from '@/Components/TextInput.vue';
+</script>
+<script>
+export default {
+  props: {
+    user: Object,
+    errors: Object
+    minutum: Object
+  },
+
+  data () {
+    return {
+      form: {
+        user_id: this.user.id,
+        distrito: '',
+        responsable: '',
+        supervisor: '',
+        particiapentes: '',
+        fecha_inicio: '',
+        fecha_final: '',
+        observaciones: '',
+      }
+    }
+  },
+
+  methods: {
+    submit () {
+        this.$inertia.put(this.route('minuta.update', minutum.id), this.form)
+    },
+  }
+
+}
+</script>
+
+<template>
+<AppLayout title="Dashboard">
+    <template #header>
+        <h2 class="font-semibold text-m text-gray-800 leading-tight">
+            Editar hoja de minuta
+        </h2>
+    </template>
+
+    <div class="py-12">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-5">
+
+                <FormSection @submitted="submit">
+
+                    <template #title>
+                        Edicion de hoja de minuta
+                    </template>
+
+                    <template #description>
+                        Una vez actualizada se perderan los datos anteriores
+                    </template>
+
+                    <template #form>
+
+                        <div class="col-span-6 sm:col-span-4">
+                            <InputLabel for="supervisor" value="Distrito" />
+                            <TextInput
+                                v-model="form.distrito"
+                                type="text"
+                                id="distrito"
+                                class="mt-1 block w-full"
+                            />
+                            <InputError :message="errors.distrito" class="mt-2" />
+                        </div>
+
+                        <div class="col-span-6 sm:col-span-4">
+                            <InputLabel for="responsable" value="Responsable" />
+                            <TextInput
+                                v-model="form.responsable"
+                                id="responsable"
+                                type="text"
+                                class="mt-1 block w-full"
+                            />
+                            <InputError :message="errors.responsable" class="mt-2" />
+                        </div>
+
+                        <div class="col-span-6 sm:col-span-4">
+                            <InputLabel for="supervisor" value="supervisor" />
+                            <TextInput
+                                v-model="form.supervisor"
+                                id="supervisor"
+                                type="text"
+                                class="mt-1 block w-full"
+                            />
+                            <InputError :message="errors.supervisor" class="mt-2" />
+                        </div>
+
+                        <div class="col-span-6 sm:col-span-4">
+                            <InputLabel for="participanetes" value="participantes" />
+                            <TextInput
+                                v-model="form.participantes"
+                                id="participantes"
+                                type="text"
+                                class="mt-1 block w-full"
+                            />
+                            <InputError :message="errors.participantes" class="mt-2" />
+                        </div>
+
+                        <div class="col-span-6 sm:col-span-4">
+                            <InputLabel for="fecha_inicio" value="fecha_inicio" />
+                            <TextInput
+                                v-model="form.fecha_inicio"
+                                id="fecha_inicio"
+                                type="date"
+                                class="mt-1 block w-full"
+                            />
+                            <InputError :message="errors.fecha_inicio" class="mt-2" />
+                        </div>
+
+                        <div class="col-span-6 sm:col-span-4">
+                            <InputLabel for="fecha_final" value="fecha_final" />
+                            <TextInput
+                                v-model="form.fecha_final"
+                                id="fecha_final"
+                                type="date"
+                                class="mt-1 block w-full"
+                            />
+                            <InputError :message="errors.fecha_final" class="mt-2" />
+                        </div>
+
+                        <div class="col-span-6 sm:col-span-4">
+                            <InputLabel for="participanetes" value="participantes" />
+                            <TextInput
+                                v-model="form.participantes"
+                                id="participantes"
+                                type="text"
+                                class="mt-1 block w-full"
+                            />
+                            <InputError :message="errors.participantes" class="mt-2" />
+                        </div>
+
+                    </template>
+
+                    <template #actions>
+                        <PrimaryButton :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
+                            Editar minuta
+                        </PrimaryButton>
+                    </template>
+                </FormSection>
+
+
+
+            </div>
+        </div>
+    </div>
+</AppLayout>
+</template>
